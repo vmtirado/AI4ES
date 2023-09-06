@@ -9,7 +9,7 @@
 int contconexion=0;
 const byte led_conn=27;
 
-// MPU 9250
+// MPU 9250 direcciones para la lectura de datos y seleccion de la escala
 #define    MPU9250_ADDRESS            0x68
 #define    MAG_ADDRESS                0x0C
 

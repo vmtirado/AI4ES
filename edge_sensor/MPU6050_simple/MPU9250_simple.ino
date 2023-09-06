@@ -131,6 +131,7 @@ void loop() {
 }
 
 
+// Imprime en serial los datos sin escalar del accelerometro y del gyroscopio
 void printData() {
    Serial.print(ax); Serial.print(" , ");
    Serial.print(ay); Serial.print(" , ");

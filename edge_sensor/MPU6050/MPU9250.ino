@@ -9,7 +9,7 @@
 int contconexion=0;
 const byte led_conn=27;
 
-// MPU 9250
+// MPU 9250 direcciones de los registros para lectura de datos y set de la escala
 #define    MPU9250_ADDRESS            0x68
 #define    MAG_ADDRESS                0x0C
 
@@ -33,12 +33,6 @@ const float accelerationThreshold = 2.5 ;
 const int numSamples = 62;
 int samplesRead = numSamples;
 
-
-//const char* ssid = "QV_2G";
-//const char* password = "2858351qv"; 
-
-//const char* ssid = "Agrosavia2.4G";
-//const char* password = "Agrosavia"; 
 
 const char* ssid = "FLIA-TIRADO-GOMEZ";
 const char* password = "14080515"; 
@@ -134,38 +128,18 @@ while (samplesRead < numSamples) {
    uint8_t buff[14];
    I2Cread(MPU9250_ADDRESS, 0x3B, 14, buff);
 
-   // Convertir registros acelerometro
+   // Leer registros acelerometro
    //Serial.println("Acelerometro");
    int16_t ax = (buff[0] << 8 | buff[1]);
    int16_t ay = (buff[2] << 8 | buff[3]);
    int16_t az = (buff[4] << 8 | buff[5]);
 
-   // Convertir registros giroscopio
+   // Leer registros giroscopio
    //Serial.println("Giroscopio");
    int16_t gx = (buff[8] << 8 | buff[9]);
    int16_t gy = (buff[10] << 8 | buff[11]);
    int16_t gz = (buff[12] << 8 | buff[13]);
 
-
-
-//   // ---  Lectura del magnetometro --- 
-//   uint8_t ST1;
-//   do
-//   {
-//      I2Cread(MAG_ADDRESS, 0x02, 1, &ST1);
-//   } while (!(ST1 & 0x01));
-//
-//   uint8_t Mag[7];
-//   I2Cread(MAG_ADDRESS, 0x03, 7, Mag);
-//
-//
-//   // Convertir registros magnetometro
-//   //Serial.println("Magnometro");
-//   int16_t mx = -(Mag[3] << 8 | Mag[2]);
-//   int16_t my = -(Mag[1] << 8 | Mag[0]);
-//   int16_t mz = -(Mag[5] << 8 | Mag[4]);
-
-//  printData();
 
 //Envio de datos 
   Udp.beginPacket("192.168.10.10", 9001); 
@@ -224,24 +198,22 @@ void I2CwriteByte(uint8_t Address, uint8_t Register, uint8_t Data)
 }
 
 
-
+// Convierte los datos del acelerometro teniendo en cuenta la escala seleccionada
 void processAccelData(){
  Ax = ax / AccelScaleFactor;
  Ay = ay / AccelScaleFactor; 
 Az = az / AccelScaleFactor;
-
-Serial.print(Ax);
-Serial.print(Ay);
-Serial.print(Az);
 }
 
-
-//void processGyroData() {
-// Gx = gyroX / GyroScaleFactor;
-// Gy = gyroY / GyroScaleFactor; 
-// Gz = gyroZ / GyroScaleFactor;
+// Convierte los datos del gyroscopio teniendo en cuenta la escala seleccionada
+void processGyroData() {
+Gx = gyroX / GyroScaleFactor;
+Gy = gyroY / GyroScaleFactor; 
+Gz = gyroZ / GyroScaleFactor;
 //}
 
+
+//Imprime los datos sin escalar del acelerometro y del gyroscopio
 void printData() {
    Serial.print(ax); Serial.print(" , ");
    Serial.print(ay); Serial.print(" , ");
