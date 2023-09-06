@@ -328,8 +328,8 @@ def calcularTiempos():
 		tiempo_ultima_actualizacion_por_modulo[modulo_i] = tiempoActual
 	tiemposEstadisticosTotales = nptiempoEstadisticos.tolist()
 ### Envia la información de los estados de los animales
-@app.route('/actualizarEstadosVacas', methods=['POST'])
-def actualizarEstadosVacas():
+@app.route('/actualizarEstadosPersonas', methods=['POST'])
+def actualizarEstadosPersonas():
 	#enviar información al cliente
 	global NUMERO_MAXIMO_MODULOS
 	global ACTIVIDAD_ACTUAL
@@ -337,14 +337,14 @@ def actualizarEstadosVacas():
 	global tiempo_inicio_por_modulo 
 	calcularTiempos()
 	nptiempoEstadisticos = np.array(tiemposEstadisticosTotales)
-	tiemposComer = [ '%.2f' % elem for elem in nptiempoEstadisticos[:,0].tolist() ]
-	tiemposRumia = [ '%.2f' % elem for elem in nptiempoEstadisticos[:,1].tolist() ]
-	tiemposNada = [ '%.2f' % elem for elem in nptiempoEstadisticos[:,2].tolist() ]
-	#tiemposNada = [ '%.2f' % elem for elem in nptiempoEstadisticos[:,3].tolist() ]
+	tiemposActividad1 = [ '%.2f' % elem for elem in nptiempoEstadisticos[:,0].tolist() ]
+	tiemposActividad2 = [ '%.2f' % elem for elem in nptiempoEstadisticos[:,1].tolist() ]
+	tiemposActividad3 = [ '%.2f' % elem for elem in nptiempoEstadisticos[:,2].tolist() ]
+	#tiemposActividad3 = [ '%.2f' % elem for elem in nptiempoEstadisticos[:,3].tolist() ]
 	ListaModulos = range(0, len(ACTIVIDAD_ACTUAL))
 	np.savetxt("./resultados/tiemposEstadisticosTotales", tiemposEstadisticosTotales, newline=" \n ")
-	#print("tiempos",tiemposComer,tiemposRumia,tiemposCaminar,tiemposNada)
-	return json.dumps({'tiempo_inicio_por_modulo':tiempo_inicio_por_modulo,'tiemposNada':tiemposNada,'tiemposRumia':tiemposRumia,'tiemposComer':tiemposComer,'ACTIVIDAD_ACTUAL':ACTIVIDAD_ACTUAL,'NUMERO_MAXIMO_MODULOS':NUMERO_MAXIMO_MODULOS, 'ListaModulos':list(ListaModulos)});
+	#print("tiempos",tiemposActividad1,tiemposActividad2,tiemposCaminar,tiemposActividad3)
+	return json.dumps({'tiempo_inicio_por_modulo':tiempo_inicio_por_modulo,'tiemposActividad3':tiemposActividad3,'tiemposActividad2':tiemposActividad2,'tiemposActividad1':tiemposActividad1,'ACTIVIDAD_ACTUAL':ACTIVIDAD_ACTUAL,'NUMERO_MAXIMO_MODULOS':NUMERO_MAXIMO_MODULOS, 'ListaModulos':list(ListaModulos)});
 
 
 if __name__ == '__main__':

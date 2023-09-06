@@ -1,23 +1,35 @@
 <!-- 
-# ____________________________________________________________________________ 
-    ____   ____              ______             _                   ___ ____     
-   / __ \ / __ \            /_  __/___   _____ (_)_____            <  // __ \    
-  / / / // /_/ /  ______     / /  / _ \ / ___// // ___/  ______    / // /_/ /    
- / /_/ // _, _/  /_____/    / /  /  __/(__  )/ /(__  )  /_____/   / / \__, /     
-/_____//_/ |_|             /_/   \___//____//_//____/            /_/ /____/      
-                                                                                 
-# ____________________________________________________________________________ 
-# index.html
-# Author: Daniela Rojas Lozano, ddp.rojas11@uniandes.edu.co
-# Configuración, atributos, diseño de interfaz.
-# ____________________________________________________________________________                                                                       
-#
--->
+
+	######################################################################
+	# This program is free software: you can redistribute it and/or modify
+	# it under the terms of the GNU General Public License as published by
+	# the Free Software Foundation, version 3 of the License.
+	#
+	# This program is distributed in the hope that it will be useful,
+	# but WITHOUT ANY WARRANTY; without even the implied warranty of
+	# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	# GNU General Public License for more details.
+	#
+	# You should have received a copy of the GNU General Public License
+	# along with this program.  If not, see <http://www.gnu.org/licenses/>
+	####################################################################*/
+	# # ____________________________________________________________________________ 
+	# # index.html
+	# # Copyright (C) 2019 Daniela Rojas Lozano, ddp.rojas11@uniandes.edu.co
+	# # Configuración, atributos, diseño de interfaz.
+	# # main.py 
+	# # Copyright (C) 2023 Vilma Marcela Tirado Gómez, vm.tirado@uniandes.edu.co
+	# # Actualización de librerias, actualización de interfaz, compatibilidad con sistemas embebidos
+	# # Asesor 
+	# # Copyright (C) 2018. F.E.Segura-Quijano (FES) fsegura@uniandes.edu.co
+	# # ____________________________________________________________________________                                                                       
+	# #
+	# -->
 
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Agrosavia</title>
+	<title>Server</title>
 	<script src="static/js/jquery.min.js"></script>	
 	<script src="static/js/Chart.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -233,7 +245,7 @@
 	}
 </style>
 </head>
-<body onload="actualizarEstadosVacas(),switchMLC(false)" >
+<body onload="actualizarEstadosPersonas(),switchMLC(false)" >
 	
 	<div style="background-color: #8cd07b; width: 100%;line-height: 55px;left: 0;top:0;position: fixed;z-index: 1;" id="main">
 
@@ -269,15 +281,15 @@
 		{% for module in ListaModulos %}
 		<div style="background-color:#dbffd2; height: 300px; width: 45%;position: relative;display: inline-block;float:left;padding: 10px; padding-top: 10px; margin-bottom: 10px;text-align: center;">
 			<label style="font-family: Helvetica; font-size: 40px;margin-top: 0%;display: block;">Vaca {{module}}</label>
-			<div id="div_vaca_{{module}}" style="width: 40%;position: relative;display: inline-block;float:left;padding: 10px; padding-top: 0px; margin-bottom: 10px;text-align: center;">
+			<div id="div_persona_{{module}}" style="width: 40%;position: relative;display: inline-block;float:left;padding: 10px; padding-top: 0px; margin-bottom: 10px;text-align: center;">
 				<img id="imagen_{{module}}" src="static/img/nada.png" style="width: 60%;height: auto;margin:auto; margin-top: 20px"><br>
 				<label id="estado_{{module}}" style="font-family: Helvetica; font-size: 40px;margin-top: 0%;display: inline-block;">Nada</label>
 			</div>
 			<div style="width: 50%;position: relative;display: inline-block;float:right;padding: 10px; padding-top: 10px; margin-bottom: 10px;">
 				<table style="text-align: left; padding: 8%; font-size: 1.1em">
-					<TR> <TD>Comer:   </TD> <TD><label id="tiempo_comer_{{module}}"> 0 h</label></TD> </TR>
-					<TR> <TD>Rumia:   </TD> <TD><label id="tiempo_rumia_{{module}}"> 0 h</label></TD> </TR>
-					<TR> <TD>Otro:  </TD> <TD><label id="tiempo_reposo_{{module}}"> 0 h</label></TD> </TR>
+					<TR> <TD>Comer:   </TD> <TD><label id="tiempo_actividad1{{module}}"> 0 h</label></TD> </TR>
+					<TR> <TD>Rumia:   </TD> <TD><label id="tiempo_actividad2{{module}}"> 0 h</label></TD> </TR>
+					<TR> <TD>Otro:  </TD> <TD><label id="tiempo_actividad3{{module}}"> 0 h</label></TD> </TR>
 					<TR> <TD> </TD> <TD><label> </label></TD> </TR>
 					<TR> <TD>Inicio: </TD> <TD><label id="tiempo_inicio_{{module}}">  </label></TD> </TR>
 					<TR> <TD>Efectivo:  </TD> <TD><label id="total_horas{{module}}"> 0 h</label></TD> </TR>
@@ -380,13 +392,13 @@
 				console.log(error);
 			}
 		});
-		actualizarEstadosVacas();
+		actualizarEstadosPersonas();
 
 	}
 
 	for (var i = 0; i < {{NUMERO_MAXIMO_MODULOS}} ; i++) {
 		modal = document.getElementById('ModalWindow');
-		btn = document.getElementById("div_vaca_"+String(i));
+		btn = document.getElementById("div_persona_"+String(i));
 		span = document.getElementsByClassName("closeModal")[0];
 		btn.onclick = function() {
 			modal.style.display = "block";
@@ -452,23 +464,23 @@ window.onclick = function(event) {
 intervalo = setInterval(actualizarEstadoModulos, 10000);
 </script>
 <script type="text/javascript">
-	function actualizarEstadosVacas()
-	{ var updateData = $.post('/actualizarEstadosVacas')
+	function actualizarEstadosPersonas()
+	{ var updateData = $.post('/actualizarEstadosPersonas')
 	updateData.done(function(results) { 
 		json = JSON.parse(results);
 		NUMERO_MAXIMO_MODULOS = json.NUMERO_MAXIMO_MODULOS;
 		ACTIVIDAD_ACTUAL = json.ACTIVIDAD_ACTUAL;
 		ListaModulos =  json.ListaModulos;
-		tiemposComer= (json.tiemposComer);
-		tiemposRumia= (json.tiemposRumia);
-		tiemposNada= (json.tiemposNada);
+		tiemposActividad1= (json.tiemposActividad1);
+		tiemposActividad2= (json.tiemposActividad2);
+		tiemposActividad3= (json.tiemposActividad3);
 		tiempo_inicio_por_modulo = json.tiempo_inicio_por_modulo
 		for (var i = 0; i <= NUMERO_MAXIMO_MODULOS; i++) {
-			$("#tiempo_comer_"+String(i)).html(String(tiemposComer[i]) + " h")
-			$("#tiempo_rumia_"+String(i)).html(String(tiemposRumia[i]) + " h")
-			$("#tiempo_reposo_"+String(i)).html(String(tiemposNada[i]) + " h")
+			$("#tiempo_actividad1"+String(i)).html(String(tiemposActividad1[i]) + " h")
+			$("#tiempo_actividad2"+String(i)).html(String(tiemposActividad2[i]) + " h")
+			$("#tiempo_actividad3"+String(i)).html(String(tiemposActividad3[i]) + " h")
 			$("#tiempo_inicio_"+String(i)).html(String(tiempo_inicio_por_modulo[i]))
-			total = (parseFloat(tiemposComer[i])+parseFloat(tiemposRumia[i])+parseFloat(tiemposNada[i])) 
+			total = (parseFloat(tiemposActividad1[i])+parseFloat(tiemposActividad2[i])+parseFloat(tiemposActividad3[i])) 
 			if(total> 0){ total.toFixed(2)}
 				$("#total_horas"+String(i)).html(String(total ) + " h" )
 			if (ACTIVIDAD_ACTUAL[i] == 0) {
@@ -491,7 +503,7 @@ intervalo = setInterval(actualizarEstadoModulos, 10000);
 
 	});
 }
-intervalo1 = setInterval(actualizarEstadosVacas, 3000);
+intervalo1 = setInterval(actualizarEstadosPersonas, 3000);
 </script>
 <script type="text/javascript">
 	function actualizarGraficas()
@@ -619,17 +631,3 @@ intervalo2 = setInterval(actualizarGraficas, 100);
 
 	</script>
 
-
-
-
-<!-- # ____________________________________________________________________________                                                                       
-# ______            _      _        ______      _           
-# |  _  \          (_)    | |       | ___ \    (_)          
-# | | | |__ _ _ __  _  ___| | __ _  | |_/ /___  _  __ _ ___ 
-# | | | / _` | '_ \| |/ _ \ |/ _` | |    // _ \| |/ _` / __|
-# | |/ / (_| | | | | |  __/ | (_| | | |\ \ (_) | | (_| \__ \
-# |___/ \__,_|_| |_|_|\___|_|\__,_| \_| \_\___/| |\__,_|___/
-#                                             _/ |          
-#                                            |__/           
-# ____________________________________________________________________________                                                                       
-# -->
