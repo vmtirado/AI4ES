@@ -260,7 +260,7 @@ def actualizar_estado():
 	global ACTIVIDAD_ACTUAL
 	global NUMERO_MAXIMO_MODULOS
 	for modulo in  range(0,NUMERO_MAXIMO_MODULOS): 
-		ACTIVIDAD_ACTUAL[modulo] = int(request.form['estadoVaca'+str(modulo)])
+		ACTIVIDAD_ACTUAL[modulo] = int(request.form['estadoPersona'+str(modulo)])
 	#print('ACTIVIDAD_ACTUAL',ACTIVIDAD_ACTUAL)
 	##print("xxxxxxxxxxxxxxxxxxx")
 	##print('ACTIVIDAD_ACTUAL',ACTIVIDAD_ACTUAL )

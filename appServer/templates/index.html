@@ -381,7 +381,7 @@
 		modal = document.getElementById('ModalWindow');
 		modal.style.display = "none";
 		numeroAnimal = moduloActivo.split("_")
-		dir['estadoVaca'+parseInt(numeroAnimal[2])] = estadoNumber
+		dir['estadoPersona'+parseInt(numeroAnimal[2])] = estadoNumber
 		$.ajax('/actualizar_estado',{
 			data: dir,
 			type: 'POST',
@@ -413,7 +413,7 @@
 			}
 			
 		}
-		dir['estadoVaca'+i] = 2
+		dir['estadoPersona'+i] = 2
 	}
 
 </script>
@@ -486,17 +486,17 @@ intervalo = setInterval(actualizarEstadoModulos, 10000);
 			if (ACTIVIDAD_ACTUAL[i] == 0) {
 				$("#imagen_"+String(i)).attr("src", "static/img/comiendo.png")
 				$("#estado_"+String(i)).html('Comiendo')
-				dir['estadoVaca'+i] = 0
+				dir['estadoPersona'+i] = 0
 			}
 			else if (ACTIVIDAD_ACTUAL[i] == 1) {
 				$("#imagen_"+String(i)).attr("src", "static/img/rumia.png")
 				$("#estado_"+String(i)).html('Rumiando')
-				dir['estadoVaca'+i] = 1
+				dir['estadoPersona'+i] = 1
 			}
 			else if (ACTIVIDAD_ACTUAL[i] == 2) {
 				$("#imagen_"+String(i)).attr("src", "static/img/nada.png")
 				$("#estado_"+String(i)).html('Nada')
-				dir['estadoVaca'+i] = 2
+				dir['estadoPersona'+i] = 2
 			}
 
 		}
