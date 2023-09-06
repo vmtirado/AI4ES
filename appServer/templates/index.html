@@ -280,16 +280,16 @@
 	<div style="margin-top: 80px;padding-left: 2%;padding-right: 2%; top: 250px;margin-bottom: 80px;">
 		{% for module in ListaModulos %}
 		<div style="background-color:#dbffd2; height: 300px; width: 45%;position: relative;display: inline-block;float:left;padding: 10px; padding-top: 10px; margin-bottom: 10px;text-align: center;">
-			<label style="font-family: Helvetica; font-size: 40px;margin-top: 0%;display: block;">Vaca {{module}}</label>
+			<label style="font-family: Helvetica; font-size: 40px;margin-top: 0%;display: block;">Persona {{module}}</label>
 			<div id="div_persona_{{module}}" style="width: 40%;position: relative;display: inline-block;float:left;padding: 10px; padding-top: 0px; margin-bottom: 10px;text-align: center;">
 				<img id="imagen_{{module}}" src="static/img/nada.png" style="width: 60%;height: auto;margin:auto; margin-top: 20px"><br>
 				<label id="estado_{{module}}" style="font-family: Helvetica; font-size: 40px;margin-top: 0%;display: inline-block;">Nada</label>
 			</div>
 			<div style="width: 50%;position: relative;display: inline-block;float:right;padding: 10px; padding-top: 10px; margin-bottom: 10px;">
 				<table style="text-align: left; padding: 8%; font-size: 1.1em">
-					<TR> <TD>Comer:   </TD> <TD><label id="tiempo_actividad1{{module}}"> 0 h</label></TD> </TR>
-					<TR> <TD>Rumia:   </TD> <TD><label id="tiempo_actividad2{{module}}"> 0 h</label></TD> </TR>
-					<TR> <TD>Otro:  </TD> <TD><label id="tiempo_actividad3{{module}}"> 0 h</label></TD> </TR>
+					<TR> <TD>Actividad 1:   </TD> <TD><label id="tiempo_actividad1{{module}}"> 0 h</label></TD> </TR>
+					<TR> <TD>Actividad 2:   </TD> <TD><label id="tiempo_actividad2{{module}}"> 0 h</label></TD> </TR>
+					<TR> <TD>Actividad 3:  </TD> <TD><label id="tiempo_actividad3{{module}}"> 0 h</label></TD> </TR>
 					<TR> <TD> </TD> <TD><label> </label></TD> </TR>
 					<TR> <TD>Inicio: </TD> <TD><label id="tiempo_inicio_{{module}}">  </label></TD> </TR>
 					<TR> <TD>Efectivo:  </TD> <TD><label id="total_horas{{module}}"> 0 h</label></TD> </TR>
@@ -351,19 +351,19 @@
 	<div id="ModalWindow" class="modalW">
 		<div class="modal-content" id="contenidoModal_1" style="width: 500px;height: 250px">
 			<span class="closeModal">&times;</span>
-			<label style="font-family: Helvetica;font-size: 28px;margin-top: 9px;display: block;">Estado Vaca</label>
+			<label style="font-family: Helvetica;font-size: 28px;margin-top: 9px;display: block;">Estado Persona</label>
 			<div style="margin-top: 40px; display: inline-block;">
-				<div  onclick="cambiarEstado( 1 )" style="display: inline-block; vertical-align: super; text-align: center ">
-					<img src="static/img/rumia.png" style="width: 120px;height: auto;"><br>
-					<label style="font-family: Helvetica; font-size: 20px">Rumia</label>
+				<div  onclick="cambiarEstado( 0 )" style="display: inline-block; vertical-align: super; text-align: center ">
+					<img src="static/img/actividad1.png" style="width: 120px;height: auto;"><br>
+					<label style="font-family: Helvetica; font-size: 20px">Actividad 1</label>
 				</div>
-				<div  onclick="cambiarEstado( 0 )" style=" display: inline-block; vertical-align: super; text-align: center" >
-					<img src="static/img/comiendo.png" style="width: 120px;height: auto;"><br>
-					<label style="font-family: Helvetica; font-size: 20px">Comiendo</label>
+				<div  onclick="cambiarEstado( 1 )" style=" display: inline-block; vertical-align: super; text-align: center" >
+					<img src="static/img/actividad2.png" style="width: 120px;height: auto;"><br>
+					<label style="font-family: Helvetica; font-size: 20px">Actividad 2</label>
 				</div>
 				<div  onclick="cambiarEstado( 2 )" style="display: inline-block;vertical-align: super; text-align: center " >
-					<img src="static/img/nada.png" style="width: 120px;height: auto;"><br>
-					<label style="font-family: Helvetica; font-size: 20px">Nada</label>
+					<img src="static/img/actividad3.png" style="width: 120px;height: auto;"><br>
+					<label style="font-family: Helvetica; font-size: 20px">Actividad 3</label>
 				</div>
 			</div>
 		</div>
@@ -484,18 +484,18 @@ intervalo = setInterval(actualizarEstadoModulos, 10000);
 			if(total> 0){ total.toFixed(2)}
 				$("#total_horas"+String(i)).html(String(total ) + " h" )
 			if (ACTIVIDAD_ACTUAL[i] == 0) {
-				$("#imagen_"+String(i)).attr("src", "static/img/comiendo.png")
-				$("#estado_"+String(i)).html('Comiendo')
+				$("#imagen_"+String(i)).attr("src", "static/img/actividad1.png")
+				$("#estado_"+String(i)).html('Actividad 1')
 				dir['estadoPersona'+i] = 0
 			}
 			else if (ACTIVIDAD_ACTUAL[i] == 1) {
-				$("#imagen_"+String(i)).attr("src", "static/img/rumia.png")
-				$("#estado_"+String(i)).html('Rumiando')
+				$("#imagen_"+String(i)).attr("src", "static/img/actividad2.png")
+				$("#estado_"+String(i)).html('Actividad 2')
 				dir['estadoPersona'+i] = 1
 			}
 			else if (ACTIVIDAD_ACTUAL[i] == 2) {
-				$("#imagen_"+String(i)).attr("src", "static/img/nada.png")
-				$("#estado_"+String(i)).html('Nada')
+				$("#imagen_"+String(i)).attr("src", "static/img/actividad3.png")
+				$("#estado_"+String(i)).html('Actividad 3')
 				dir['estadoPersona'+i] = 2
 			}
 
