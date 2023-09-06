@@ -122,7 +122,7 @@ def ThreadActualizarSocket():
 		
 		print("after first data")
 		data = data.decode()
-		file = open("./resultados/datosAccel/completos"+str(TIEMPO_INICIO)+".csv","a") #Se activa (crea) el archivo para guardar (escribir) un nuevo dato
+		file = open("./data/dataMPU6050/completos"+str(TIEMPO_INICIO)+".csv","a") #Se activa (crea) el archivo para guardar (escribir) un nuevo dato
 		print("Before try")
 		try:
 			print("Datos adquiridos")
